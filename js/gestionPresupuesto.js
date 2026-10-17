@@ -19,7 +19,7 @@ function mostrarPresupuesto() {
 }
 
 function CrearGasto() {
-    // TODO
+    //TODO
 }
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
