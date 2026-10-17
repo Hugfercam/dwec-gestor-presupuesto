@@ -18,8 +18,19 @@ function mostrarPresupuesto() {
     return texto;
 }
 
-function CrearGasto() {
-    //TODO
+function CrearGasto(descripcion, valor) {
+    this.descripcion = descripcion;
+    if(!Number.isNaN(Number(valor)) && valor >= 0) {
+        this.valor = Number(valor);
+    } else {
+        console.log("Gasto no valido");
+        this.valor = 0;
+    }
+}
+
+CrearGasto.prototype.mostrarGasto = function() {
+    let texto = `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €`;
+    return texto;
 }
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
