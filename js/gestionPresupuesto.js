@@ -1,14 +1,11 @@
-var presupuesto = 0;// TODO: Crear las funciones, objetos y variables indicadas en el enunciado
-
-// TODO: Variable global
-
+var presupuesto = 0;
 
 function actualizarPresupuesto(valor) {
     if(!Number.isNaN(Number(valor)) && valor >= 0) {
         presupuesto = Number(valor);
         return presupuesto;
     } else {
-        console.log("Prespuesto no valido")
+        console.log("Presupuesto no valido")
         return -1;
     }    
 }
@@ -35,7 +32,7 @@ CrearGasto.prototype.mostrarGasto = function() {
 
 CrearGasto.prototype.actualizarDescripcion = function(nuevaDescripcion) {
     this.descripcion = nuevaDescripcion;
-}
+};
 
 CrearGasto.prototype.actualizarValor = function(nuevoValor) {
     if(!Number.isNaN(Number(nuevoValor)) && nuevoValor >= 0) {
