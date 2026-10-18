@@ -37,11 +37,13 @@ CrearGasto.prototype.actualizarDescripcion = function(nuevaDescripcion) {
     this.descripcion = nuevaDescripcion;
 }
 
-let gasto1 = new CrearGasto("Compra", 50);
-
-gasto1.actualizarDescripcion("Supermercado");
-
-console.log(gasto1.mostrarGasto());
+CrearGasto.prototype.actualizarValor = function(nuevoValor) {
+    if(!Number.isNaN(Number(nuevoValor)) && nuevoValor >= 0) {
+        this.valor = Number(nuevoValor);
+    } else {
+        console.log("Gasto no valido");
+    }
+}
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
 // Las funciones y objetos deben tener los nombres que se indican en el enunciado
