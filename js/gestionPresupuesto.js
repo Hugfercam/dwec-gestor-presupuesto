@@ -63,7 +63,11 @@ CrearGasto.prototype.actualizarFecha = function(nuevaFecha){
     }
 }
 
-    
+CrearGasto.prototype.borrarEtiquetas = function(...etiquetasBorrar) {
+    this.etiquetas = this.etiquetas.filter(function(etiqueta) {
+        return !etiquetasBorrar.includes(etiqueta);
+    });
+}   
 
 
 
