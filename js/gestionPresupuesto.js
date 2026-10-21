@@ -56,6 +56,13 @@ CrearGasto.prototype.anyadirEtiquetas = function(...nuevasEtiquetas){
         }
     }
 }
+
+CrearGasto.prototype.actualizarFecha = function(nuevaFecha){
+    if(!Number.isNaN(Date.parse(nuevaFecha))) {
+        this.fecha = Date.parse(nuevaFecha);
+    }
+}
+
     
 
 
