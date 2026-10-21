@@ -84,8 +84,10 @@ function anyadirGasto(gasto) {
     gastos.push(gasto);
 }
 
-function borrarGasto() {
-
+function borrarGasto(id) {
+    gastos = gastos.filter(function(gastos) {
+        return gastos.id !== id;
+    });
 }
 
 function calcularTotalGastos() {
