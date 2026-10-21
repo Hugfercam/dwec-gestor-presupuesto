@@ -15,7 +15,7 @@ function mostrarPresupuesto() {
     return texto;
 }
 
-function CrearGasto(descripcion, valor) {
+function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
     this.descripcion = descripcion;
     if(!Number.isNaN(Number(valor)) && valor >= 0) {
         this.valor = Number(valor);
@@ -23,6 +23,13 @@ function CrearGasto(descripcion, valor) {
         console.log("Gasto no valido");
         this.valor = 0;
     }
+    if (!Number.isNaN(Date.parse(fecha))) {
+    this.fecha = Date.parse(fecha);
+    } else {
+    this.fecha = Date.now();
+    }
+    this.etiquetas = [];
+    this.anyadirEtiquetas(...etiquetas);
 }
 
 CrearGasto.prototype.mostrarGasto = function() {
@@ -41,6 +48,17 @@ CrearGasto.prototype.actualizarValor = function(nuevoValor) {
         console.log("Gasto no valido");
     }
 }
+
+CrearGasto.prototype.anyadirEtiquetas = function(...nuevasEtiquetas){
+    for (let etiqueta of nuevasEtiquetas) {        
+        if (!this.etiquetas.includes(etiqueta)) {
+            this.etiquetas.push(etiqueta);
+        }
+    }
+}
+    
+
+
 
 let gastos = [];
 let idGasto = 0;
