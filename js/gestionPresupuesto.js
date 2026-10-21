@@ -103,6 +103,17 @@ function calcularBalance() {
     return balance;
 }
 
+CrearGasto.prototype.mostrarGastoCompleto = function() {
+    let texto = `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €.\n`;
+    let fechaTexto = new Date(this.fecha).toLocaleString();
+    texto += `Fecha: ${fechaTexto}\n`;
+    texto += "Etiquetas:\n";
+    for (let etiqueta of this.etiquetas){   
+        texto += `- ${etiqueta}\n`;
+    }
+    return texto;
+};
+
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
 // Las funciones y objetos deben tener los nombres que se indican en el enunciado
 // Si al obtener el código de una práctica se genera un conflicto, por favor incluye todo el código que aparece aquí debajo
