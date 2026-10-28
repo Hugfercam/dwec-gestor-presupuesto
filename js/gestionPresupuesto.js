@@ -30,6 +30,24 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
     }
     this.etiquetas = [];
     this.anyadirEtiquetas(...etiquetas);
+    
+    this.obtenerPeriodoAgrupacion = function(periodo) {
+
+    let fecha = new Date(this.fecha);
+    let fechaTexto = fecha.toISOString();
+
+    if (periodo === "dia") {
+        return fechaTexto.substring(0, 10);
+    }
+
+    if (periodo === "mes") {
+        return fechaTexto.substring(0, 7);
+    }
+
+    if (periodo === "anyo") {
+        return fechaTexto.substring(0, 4);
+    }
+};
 }
 
 CrearGasto.prototype.mostrarGasto = function() {
@@ -67,9 +85,7 @@ CrearGasto.prototype.borrarEtiquetas = function(...etiquetasBorrar) {
     this.etiquetas = this.etiquetas.filter(function(etiqueta) {
         return !etiquetasBorrar.includes(etiqueta);
     });
-}   
-
-
+} 
 
 let gastos = [];
 let idGasto = 0;
@@ -114,6 +130,16 @@ CrearGasto.prototype.mostrarGastoCompleto = function() {
     return texto;
 };
 
+function filtrarGastos() {
+
+}
+
+function agruparGastos() {
+
+}
+
+
+
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
 // Las funciones y objetos deben tener los nombres que se indican en el enunciado
 // Si al obtener el código de una práctica se genera un conflicto, por favor incluye todo el código que aparece aquí debajo
@@ -125,5 +151,7 @@ export   {
     anyadirGasto,
     borrarGasto,
     calcularTotalGastos,
-    calcularBalance
+    calcularBalance,
+    filtrarGastos,
+    agruparGastos,
 }
