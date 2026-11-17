@@ -55,6 +55,18 @@ function mostrarGastoWeb(idElemento, gasto) {
 
     divGasto.append(botonEditar);
 
+    let botonBorrar =document.createElement("button");
+    botonBorrar.type = "button";
+    botonBorrar.className = "gasto-borrar";
+    botonBorrar.textContent = "Borrar";
+    let manejadorBorrar = new BorrarHandle;
+    manejadorBorrar.gasto = gasto;
+
+    botonBorrar.addEventListener("click", manejadorBorrar);
+
+    divGasto.append(botonBorrar);
+
+
     contenedor.append(divGasto);
 }
 
@@ -157,7 +169,15 @@ function EditarHandle() {
 
         repintar();
     };
-    
+
+}
+
+function BorrarHandle() {
+    this.handleEvent = function () {
+        gestion.borrarGasto(this.gasto.id);
+
+        repintar();
+    };
 }
 
 let botonPresupuesto = document.getElementById("actualizarpresupuesto");
@@ -167,6 +187,7 @@ botonPresupuesto.addEventListener("click", actualizarPresupuestoWeb);
 let botonNuevoGasto = document.getElementById("anyadirgasto");
 
 botonNuevoGasto.addEventListener("click", nuevoGastoWeb);
+
 
 
 export {
