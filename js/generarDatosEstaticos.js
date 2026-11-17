@@ -1,0 +1,120 @@
+import * as gestion from "./gestionPresupuesto.js";
+import * as web from "./gestionPresupuestoWeb.js";
+
+gestion.actualizarPresupuesto(1500);
+
+web.mostrarDatoEnId("presupuesto", gestion.mostrarPresupuesto());
+
+let gasto1 = new gestion.crearGasto(
+    "Compra carne",
+    23.44,
+    "2021-10-06",
+    "casa",
+    "comida"
+);
+
+gestion.anyadirGasto(gasto1);
+
+let gasto2 = new gestion.crearGasto(
+    "Compra fruta y verdura",
+    14.25,
+    "2021-09-06",
+    "supermercado",
+    "comida"
+);
+gestion.anyadirGasto(gasto2);
+
+let gasto3 = new gestion.crearGasto(
+    "Bonobús",
+    18.60,
+    "2020-05-26",
+    "transporte"
+);
+
+gestion.anyadirGasto(gasto3);
+
+let gasto4 = new gestion.crearGasto(
+    "Gasolina",
+    60.42,
+    "2021-10-08",
+    "transporte",
+    "gasolina"
+);
+
+gestion.anyadirGasto(gasto4);
+
+let gasto5 = new gestion.crearGasto(
+    "Seguro hogar",
+    206.45,
+    "2021-09-26",
+    "casa",
+    "seguros"
+);
+
+gestion.anyadirGasto(gasto5);
+
+let gasto6 = new gestion.crearGasto(
+    "Seguro coche",
+    195.78,
+    "2021-10-06",
+    "transporte",
+    "seguros"
+);
+
+gestion.anyadirGasto(gasto6);
+
+web.mostrarDatoEnId("gastos-totales", gestion.calcularTotalGastos().toFixed(2));
+web.mostrarDatoEnId("balance-total", gestion.calcularBalance().toFixed(2));
+
+let gastos = gestion.listarGastos();
+gastos.forEach(gasto => {
+    web.mostrarGastoWeb("listado-gastos-completo", gasto);
+});
+
+let gastosSeptiembre = gestion.filtrarGastos({
+    fechaDesde: "2021-09-01",
+    fechaHasta: "2021-09-30"
+});
+
+gastosSeptiembre.forEach(gasto => {
+    web.mostrarGastoWeb("listado-gastos-filtrado-1", gasto);
+});
+
+
+let gastosMayores50 = gestion.filtrarGastos({
+    valorMinimo: 50
+});
+
+gastosMayores50.forEach(gasto => {
+    web.mostrarGastoWeb("listado-gastos-filtrado-2", gasto);
+});
+
+let gastosSeguros = gestion.filtrarGastos({
+    valorMinimo: 200,
+    etiquetas: ["seguros"]
+});
+
+gastosSeguros.forEach(gasto => {
+    web.mostrarGastoWeb("listado-gastos-filtrado-3", gasto);
+});
+
+let gastosFiltrados4 = gestion.filtrarGastos({
+    valorMaximo: 50,
+    etiquetas: ["comida", "transporte"]
+});
+
+gastosFiltrados4.forEach(gasto => {
+    web.mostrarGastoWeb("listado-gastos-filtrado-4", gasto);
+});
+
+let gastosPorDia = gestion.agruparGastos("dia");
+
+web.mostrarGastosAgrupadosWeb("agrupacion-dia", gastosPorDia, "dia");
+
+let gastosPorMes = gestion.agruparGastos("mes");
+
+web.mostrarGastosAgrupadosWeb("agrupacion-mes", gastosPorMes, "mes");
+
+let gastosPorAnyo = gestion.agruparGastos("anyo");
+
+web.mostrarGastosAgrupadosWeb("agrupacion-anyo", gastosPorAnyo, "anyo");

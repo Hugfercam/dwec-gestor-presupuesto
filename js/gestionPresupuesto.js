@@ -15,7 +15,7 @@ function mostrarPresupuesto() {
     return texto;
 }
 
-function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
+function crearGasto(descripcion, valor, fecha, ...etiquetas) {
     this.descripcion = descripcion;
     if (!Number.isNaN(Number(valor)) && valor >= 0) {
         this.valor = Number(valor);
@@ -50,16 +50,16 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
     };
 }
 
-CrearGasto.prototype.mostrarGasto = function () {
+crearGasto.prototype.mostrarGasto = function () {
     let texto = `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €`;
     return texto;
 }
 
-CrearGasto.prototype.actualizarDescripcion = function (nuevaDescripcion) {
+crearGasto.prototype.actualizarDescripcion = function (nuevaDescripcion) {
     this.descripcion = nuevaDescripcion;
 };
 
-CrearGasto.prototype.actualizarValor = function (nuevoValor) {
+crearGasto.prototype.actualizarValor = function (nuevoValor) {
     if (!Number.isNaN(Number(nuevoValor)) && nuevoValor >= 0) {
         this.valor = Number(nuevoValor);
     } else {
@@ -67,7 +67,7 @@ CrearGasto.prototype.actualizarValor = function (nuevoValor) {
     }
 }
 
-CrearGasto.prototype.anyadirEtiquetas = function (...nuevasEtiquetas) {
+crearGasto.prototype.anyadirEtiquetas = function (...nuevasEtiquetas) {
     for (let etiqueta of nuevasEtiquetas) {
         if (!this.etiquetas.includes(etiqueta)) {
             this.etiquetas.push(etiqueta);
@@ -75,13 +75,13 @@ CrearGasto.prototype.anyadirEtiquetas = function (...nuevasEtiquetas) {
     }
 }
 
-CrearGasto.prototype.actualizarFecha = function (nuevaFecha) {
+crearGasto.prototype.actualizarFecha = function (nuevaFecha) {
     if (!Number.isNaN(Date.parse(nuevaFecha))) {
         this.fecha = Date.parse(nuevaFecha);
     }
 }
 
-CrearGasto.prototype.borrarEtiquetas = function (...etiquetasBorrar) {
+crearGasto.prototype.borrarEtiquetas = function (...etiquetasBorrar) {
     this.etiquetas = this.etiquetas.filter(function (etiqueta) {
         return !etiquetasBorrar.includes(etiqueta);
     });
@@ -119,7 +119,7 @@ function calcularBalance() {
     return balance;
 }
 
-CrearGasto.prototype.mostrarGastoCompleto = function () {
+crearGasto.prototype.mostrarGastoCompleto = function () {
     let texto = `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €.\n`;
     let fechaTexto = new Date(this.fecha).toLocaleString();
     texto += `Fecha: ${fechaTexto}\n`;
@@ -176,11 +176,6 @@ function filtrarGastos(filtros) {
 
     return resultado;
 }
-
-
-
-
-
 
 function agruparGastos(
     periodo = "mes",
@@ -239,7 +234,7 @@ function mostrarGastoWeb(idElemento, gasto) {
 
     let fecha = new Date(gasto.fecha);
     divFecha.textContent = fecha.toISOString().substring(0, 10);
-    
+
     divGasto.append(divFecha);
 
     let divValor = document.createElement("div");
@@ -250,16 +245,16 @@ function mostrarGastoWeb(idElemento, gasto) {
 
     let divEtiquetas = document.createElement("div");
     divEtiquetas.className = "gasto-etiquetas";
-    
+
     gasto.etiquetas.forEach(etiqueta => {
 
-    let spanEtiqueta = document.createElement("span");
-    spanEtiqueta.className = "gasto-etiquetas-etiqueta";
-    spanEtiqueta.textContent = etiqueta;
+        let spanEtiqueta = document.createElement("span");
+        spanEtiqueta.className = "gasto-etiquetas-etiqueta";
+        spanEtiqueta.textContent = etiqueta;
 
-    divEtiquetas.append(spanEtiqueta);
+        divEtiquetas.append(spanEtiqueta);
     });
-    
+
     divGasto.append(divEtiquetas);
 
     contenedor.append(divGasto);
@@ -278,16 +273,39 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
 
     Object.entries(agrup).forEach(([clave, valor]) => {
 
-    let divDato = document.createElement("div");
-    divDato.className = "agrupacion-dato";
-    divAgrupacion.append(divDato);  
-    });
+        let divDato = document.createElement("div");
+        divDato.className = "agrupacion-dato";
+        divAgrupacion.append(divDato);
 
+        let spanDatoClave = document.createElement("span");
+        spanDatoClave.className = "agrupacion-dato-clave";
+        spanDatoClave.textContent = clave;
+
+        divDato.append(spanDatoClave);
+
+        let spanDatoValor = document.createElement("span");
+        spanDatoValor.className = "agrupacion-dato-valor";
+        spanDatoValor.textContent = valor;
+
+        divDato.append(spanDatoValor);
+    });
+    let nombrePeriodo = periodo;
+
+    if (periodo === "dia") {
+        nombrePeriodo = "día";
+    } else if (periodo === "anyo") {
+        nombrePeriodo = "año";
+    }
+
+    h1.textContent = "Gastos agrupados por " + nombrePeriodo;
+
+    contenedor.append(divAgrupacion);
 }
 
 export {
-    mostrarDatoEnId
-    mostrarGastoWeb
+    mostrarDatoEnId,
+    mostrarGastoWeb,
+    mostrarGastosAgrupadosWeb,
 };
 
 
@@ -298,7 +316,7 @@ export {
 export {
     mostrarPresupuesto,
     actualizarPresupuesto,
-    CrearGasto,
+    crearGasto,    
     listarGastos,
     anyadirGasto,
     borrarGasto,
