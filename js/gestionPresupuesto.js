@@ -213,6 +213,8 @@ function agruparGastos(
     return resultado;
 }
 
+import * as gestion from "./gestionPresupuesto.js";
+
 function mostrarDatoEnId(idElemento, valor) {
     let elemento = document.getElementById(idElemento);
     elemento.textContent = valor;
@@ -257,7 +259,7 @@ function mostrarGastoWeb(idElemento, gasto) {
 
     divGasto.append(divEtiquetas);
 
-    contenedor.append(divGasto);
+    contenedor.append(divGasto);    
 }
 
 function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
@@ -302,6 +304,22 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
     contenedor.append(divAgrupacion);
 }
 
+function repintar() {
+    mostrarDatoEnId("presupuesto", gestion.mostrarPresupuesto());
+    mostrarDatoEnId("gastos-totales", gestion.calcularTotalGastos());
+    mostrarDatoEnId("balance-total", gestion.calcularBalance());
+
+    let contenedorGastos = document.getElementById('listado-gastos-completo');
+    contenedorGastos.innerHTML = '';
+
+    let gastos = gestion.listarGastos();
+
+    gastos.forEach(gasto => {
+        mostrarGastoWeb("listado-gastos-completo", gasto);
+    });
+}
+
+
 export {
     mostrarDatoEnId,
     mostrarGastoWeb,
@@ -316,7 +334,7 @@ export {
 export {
     mostrarPresupuesto,
     actualizarPresupuesto,
-    CrearGasto,    
+    CrearGasto,
     listarGastos,
     anyadirGasto,
     borrarGasto,
