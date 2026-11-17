@@ -15,7 +15,7 @@ function mostrarPresupuesto() {
     return texto;
 }
 
-function crearGasto(descripcion, valor, fecha, ...etiquetas) {
+function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
     this.descripcion = descripcion;
     if (!Number.isNaN(Number(valor)) && valor >= 0) {
         this.valor = Number(valor);
@@ -50,16 +50,16 @@ function crearGasto(descripcion, valor, fecha, ...etiquetas) {
     };
 }
 
-crearGasto.prototype.mostrarGasto = function () {
+CrearGasto.prototype.mostrarGasto = function () {
     let texto = `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €`;
     return texto;
 }
 
-crearGasto.prototype.actualizarDescripcion = function (nuevaDescripcion) {
+CrearGasto.prototype.actualizarDescripcion = function (nuevaDescripcion) {
     this.descripcion = nuevaDescripcion;
 };
 
-crearGasto.prototype.actualizarValor = function (nuevoValor) {
+CrearGasto.prototype.actualizarValor = function (nuevoValor) {
     if (!Number.isNaN(Number(nuevoValor)) && nuevoValor >= 0) {
         this.valor = Number(nuevoValor);
     } else {
@@ -67,7 +67,7 @@ crearGasto.prototype.actualizarValor = function (nuevoValor) {
     }
 }
 
-crearGasto.prototype.anyadirEtiquetas = function (...nuevasEtiquetas) {
+CrearGasto.prototype.anyadirEtiquetas = function (...nuevasEtiquetas) {
     for (let etiqueta of nuevasEtiquetas) {
         if (!this.etiquetas.includes(etiqueta)) {
             this.etiquetas.push(etiqueta);
@@ -75,13 +75,13 @@ crearGasto.prototype.anyadirEtiquetas = function (...nuevasEtiquetas) {
     }
 }
 
-crearGasto.prototype.actualizarFecha = function (nuevaFecha) {
+CrearGasto.prototype.actualizarFecha = function (nuevaFecha) {
     if (!Number.isNaN(Date.parse(nuevaFecha))) {
         this.fecha = Date.parse(nuevaFecha);
     }
 }
 
-crearGasto.prototype.borrarEtiquetas = function (...etiquetasBorrar) {
+CrearGasto.prototype.borrarEtiquetas = function (...etiquetasBorrar) {
     this.etiquetas = this.etiquetas.filter(function (etiqueta) {
         return !etiquetasBorrar.includes(etiqueta);
     });
@@ -119,7 +119,7 @@ function calcularBalance() {
     return balance;
 }
 
-crearGasto.prototype.mostrarGastoCompleto = function () {
+CrearGasto.prototype.mostrarGastoCompleto = function () {
     let texto = `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €.\n`;
     let fechaTexto = new Date(this.fecha).toLocaleString();
     texto += `Fecha: ${fechaTexto}\n`;
@@ -316,7 +316,7 @@ export {
 export {
     mostrarPresupuesto,
     actualizarPresupuesto,
-    crearGasto,    
+    CrearGasto,    
     listarGastos,
     anyadirGasto,
     borrarGasto,
